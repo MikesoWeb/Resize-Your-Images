@@ -1,0 +1,24 @@
+{% extends 'resize/layout.html' %}
+
+{% block content %}
+
+<div class="col-12">
+    <div class="m-auto text-center mb-3 align-self-center mt-5">
+
+        {% if image_file %}
+            <img src="{{ image_file }}">
+            <button class="btn btn-success btn-sm">
+                <a class="text-white text-decoration-none" href="{{
+                    url_for('download', filename=image_file ) }}"
+                    download>{{ render_icon('cloud-download') }}</a></button>
+        {% else %}
+            <p>Файл не доступен</p>
+        {% endif %}
+    </div>
+
+</div>
+
+<button class="btn btn-primary"><a class="text-white text-decoration-none"
+        href="{{ url_for('index') }}">Хотите еще?</a></button>
+
+{% endblock%}

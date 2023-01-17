@@ -1,0 +1,28 @@
+{% extends 'resize/layout.html' %}
+{% from 'bootstrap5/form.html' import render_form %}
+
+{% block content%}
+<div class="container h-100">
+
+    <div class="col-auto d-flex justify-content-center">
+        <img src="{{ url_for('static', filename='img/logo.jpg') }}" alt=""
+            class="rounded-circle" style="height:200px; align-self: center">
+        <br>
+    </div>
+    <div class="col-12 d-flex justify-content-center">
+        <small class="align-self-center" style="font-family: 'Marck Script',
+            cursive; font-size: 120px; align-self: center; color: rgb(46, 181,
+            215);">Resize your images </small>
+
+    </div>
+
+    <div class="col-4 m-auto d-flex">
+        {{ render_form(form, form_type='inline') }}
+
+    </div>
+
+    <br>
+
+
+</div>
+{% endblock %}

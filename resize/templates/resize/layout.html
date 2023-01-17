@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+{% from 'bootstrap5/utils.html' import render_static %}
+{% from 'bootstrap5/utils.html' import render_icon %}
+{% from 'bootstrap5/utils.html' import render_messages %}
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        {% block styles %}
+        {{ bootstrap.load_css() }}
+        {{ render_static('static/css', 'style.css') }}
+        {{ render_static('static/js', 'script.js') }}
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Marck+Script&family=Rubik+Beastly&display=swap');
+        </style>
+        {% endblock styles %}
+        {% block title %}
+        <link rel="shortcut icon" href="{{ url_for('static',
+            filename='favicon/favicon.ico') }}">
+        <title>{{ title if title else 'Resizer IMG' }} </title>
+
+        {% endblock title %}
+    </head>
+    <body>
+        <div class="text-center">
+            {{ render_messages() }}
+            {% block content %}
+
+            {% endblock content %}
+
+        </div>
+
+
+        <!--SCRIPT-->
+        {% block scripts %}
+        {{ bootstrap.load_js() }}
+        {% endblock scripts %}
+    </body>
+</html>
