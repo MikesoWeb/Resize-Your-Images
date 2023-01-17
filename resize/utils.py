@@ -3,7 +3,6 @@ import secrets
 import time
 import platform
 from PIL import Image
-
 from resize.settings import path_to_user_image, RESOLUTIONS_LIST
 
 
@@ -22,10 +21,28 @@ def get_timestamp_file(path: str) -> float:
     if platform.system() == 'Windows':
         return os.path.getctime(path)
     else:
-        print('что-то пошло не так')
+        print('Что-то пошло не так')
 
 
-def image_resize(img:object, image_size:str) -> str:
+def lowercase_ext(filename: str) -> str:
+    """Разделяет файл на имя и расширение 
+    и для приводит расширение к нижнему регистру"""
+    if '.' in filename:
+        _, ext = os.path.splitext(filename)
+        return ext.lower()
+    """Если файл нельзя разбить на имя и расширение,
+    вернуть входящий файл без изменений"""
+    return filename
+
+
+def random_hex_filename(ext):
+    """Генерируем случайно имя для файла и 
+    конкатерируем его с расширением"""
+    random_hex = secrets.token_hex(16)
+    picture_fn = str(random_hex) + ext
+    return picture_fn
+
+def image_resize(img: object, image_size: str) -> str:
     """
     Args:
         img (object): Объект изображения с формы загрузки
@@ -34,16 +51,17 @@ def image_resize(img:object, image_size:str) -> str:
     Returns:
         str: Сгенерированное имя файла
     """
+    # lowercase_ext(img)
+    # print(lowercase_ext(img))
+    
     resolution = RESOLUTIONS_LIST[image_size]
-    random_hex = secrets.token_hex(16)
-    _, f_ext = os.path.splitext(img.filename)
-    picture_fn = str(random_hex) + f_ext
-
-    path = os.path.join(path_to_user_image(), picture_fn)
+    f_ext = lowercase_ext(img.filename)
+    p_name = random_hex_filename(f_ext)
+    path = os.path.join(path_to_user_image(), p_name)
     i = Image.open(img)
     i.thumbnail(resolution, Image.ANTIALIAS)
     i.save(path)
-    return picture_fn
+    return p_name
 
 
 
