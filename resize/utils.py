@@ -32,21 +32,23 @@ def get_timestamp_file(path: str) -> float:
 
 
 def lowercase_ext(filename: str) -> str:
-    """Разделяет файл на имя и расширение 
-    и для приводит расширение к нижнему регистру"""
-    if '.' in filename:
-        _, ext = os.path.splitext(filename)
-        return ext.lower()
-    """Если файл нельзя разбить на имя и расширение,
-    вернуть входящий файл без изменений"""
-    return filename
+    if not filename or '.' not in filename:
+        return filename
+
+    _, ext = os.path.splitext(filename)
+    return ext.lower()
+
 
 
 def random_hex_filename(ext):
-    """Генерируем случайно имя для файла и 
-    конкатерируем его с расширением"""
+
+    """Функция, которая генерирует случайное имя файла и добавляет к нему расширение"""
+    
+    # Генерация 16-байтного случайного шестнадцатеричного числа
     random_hex = secrets.token_hex(16)
+    # Создание имени файла из случайного шестнадцатеричного числа и расширения
     picture_fn = str(random_hex) + ext
+    # Возврат созданного имени файла
     return picture_fn
 
 def image_resize(img: object, image_size: str) -> str:
