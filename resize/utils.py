@@ -20,8 +20,10 @@ def get_timestamp_file(path: str) -> float:
     
     if platform.system() == 'Windows':
         return os.path.getctime(path)
+    elif platform.system() == 'Unix':
+        return os.path.getmtime(path)
     else:
-        print('Что-то пошло не так')
+        raise NotImplementedError("Функция не реализована для данной операционной системы.")
 
 
 def lowercase_ext(filename: str) -> str:
